@@ -1,0 +1,52 @@
+name: Playwright tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Type-check
+        run: npm run typecheck
+
+      - name: Install Playwright browser
+        run: npx playwright install --with-deps chromium
+
+      - name: Run tests
+        run: npm test
+        env:
+          CI: true
+
+      # Runs even when tests fail. Writes bug-report.md and shows it in the run summary.
+      # If the ANTHROPIC_API_KEY secret is not set, a rule-based summary is used instead.
+      - name: AI bug triage
+        if: always()
+        run: npm run triage
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+
+      - name: Upload reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-reports
+          path: |
+            playwright-report/
+            test-results/
+            bug-report.md
+          retention-days: 14

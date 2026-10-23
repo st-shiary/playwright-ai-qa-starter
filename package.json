@@ -1,0 +1,23 @@
+{
+  "name": "playwright-ai-qa-starter",
+  "version": "1.0.0",
+  "description": "Demo: Playwright (TypeScript) test suite with GitHub Actions CI and AI-written bug reports for failed runs. Built on the public sample shop saucedemo.com.",
+  "private": true,
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "report": "playwright show-report",
+    "typecheck": "tsc --noEmit",
+    "triage": "tsx scripts/ai-triage.ts test-results/results.json bug-report.md",
+    "triage:sample": "tsx scripts/ai-triage.ts examples/sample-results.json bug-report.md"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.49.0",
+    "@types/node": "^20.14.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

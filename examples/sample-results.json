@@ -1,0 +1,77 @@
+{
+  "stats": { "expected": 12, "unexpected": 2, "flaky": 1, "skipped": 0, "duration": 41250 },
+  "suites": [
+    {
+      "title": "checkout.spec.ts",
+      "specs": [],
+      "suites": [
+        {
+          "title": "Checkout",
+          "specs": [
+            {
+              "title": "a customer can complete a purchase",
+              "file": "checkout.spec.ts",
+              "line": 6,
+              "tests": [
+                {
+                  "status": "unexpected",
+                  "results": [
+                    {
+                      "status": "failed",
+                      "duration": 30012,
+                      "error": { "message": "\u001b[31mTimeoutError\u001b[39m: locator.click: Timeout 30000ms exceeded.\nCall log:\n  - waiting for getByTestId('finish')" },
+                      "attachments": [{ "name": "screenshot", "path": "test-results/checkout-purchase/test-failed-1.png" }]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "title": "postal code is required",
+              "file": "checkout.spec.ts",
+              "line": 27,
+              "tests": [
+                {
+                  "status": "unexpected",
+                  "results": [
+                    {
+                      "status": "failed",
+                      "duration": 8120,
+                      "error": { "message": "Error: expect(locator).toContainText(expected)\n\nExpected substring: \"Postal Code is required\"\nReceived string:    \"Error: Last Name is required\"" },
+                      "attachments": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "inventory.spec.ts",
+      "specs": [],
+      "suites": [
+        {
+          "title": "Product list",
+          "specs": [
+            {
+              "title": "sorting by price low to high orders the list correctly",
+              "file": "inventory.spec.ts",
+              "line": 13,
+              "tests": [
+                {
+                  "status": "flaky",
+                  "results": [
+                    { "status": "failed", "duration": 7050, "error": { "message": "Error: expect(received).toBe(expected)\n\nExpected: true\nReceived: false" }, "attachments": [] },
+                    { "status": "passed", "duration": 2100, "attachments": [] }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
