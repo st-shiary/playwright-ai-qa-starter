@@ -25,8 +25,12 @@ test.describe('Product list', () => {
     const name = (await inventory.itemNames.first().textContent()) ?? '';
     await inventory.itemNames.first().click();
     await expect(page).toHaveURL(/inventory-item\.html/);
+    // The URL changes before the page content does. Wait for an element that only exists
+    // on the detail page, otherwise 'inventory-item-name' still matches the 6 list items.
+    const back = page.getByTestId('back-to-products');
+    await expect(back).toBeVisible();
     await expect(page.getByTestId('inventory-item-name')).toHaveText(name);
-    await page.getByTestId('back-to-products').click();
+    await back.click();
     await inventory.expectLoaded();
   });
 });
